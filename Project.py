@@ -13,7 +13,7 @@ class Particle:
             velocity=np.array([0, 0], dtype=float),
             radius=1E-2,
             mass=1.0,
-            colour="blue"
+            colour="red"
     ):
             self.id = id
             self.position = np.array(position, dtype=float)
@@ -47,21 +47,19 @@ class Box:
         for i in range (self.number_of_particles):
             self.particles[i].position += self.time_increment * self.particles[i].velocity
 
-    def plot(self):
+    def plot(self,colour):
         for i in range (self.number_of_particles):
-            plt.scatter(box.particles[i].position[0], box.particles[i].position[1])#, color=box.particles[i].colour)
+            plt.scatter(box.particles[i].position[0], box.particles[i].position[1], color=colour)
             plt.xlabel('time')
             plt.ylabel('position')
 
        
-box = Box(1, 1, 5, 10)
+box = Box(1, 2, 5, 10)
 box.random_pos()
-box.plot()
-
-
+box.plot("red")
 
 box.update_pos()
-box.plot()
+box.plot("green")
 
 plt.show()
 
