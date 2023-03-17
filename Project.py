@@ -13,7 +13,8 @@ class Particle:
             velocity=np.array([0, 0], dtype=float),
             radius=1E-2,
             mass=1.0,
-            colour="red"
+            colour="red",
+            gradient = 1
     ):
             self.id = id
             self.position = np.array(position, dtype=float)
@@ -21,6 +22,7 @@ class Particle:
             self.radius = radius
             self.mass = mass
             self.colour = colour
+            self.gradient = gradient
         
 
 class Box:
@@ -49,17 +51,19 @@ class Box:
 
     def plot(self,colour):
         for i in range (self.number_of_particles):
-            plt.scatter(box.particles[i].position[0], box.particles[i].position[1], color=colour)
+            plt.scatter(box.particles[i].position[0], box.particles[i].position[1], color=colour, alpha=box.particles[i].gradient)
             plt.xlabel('time')
             plt.ylabel('position')
 
-       
-box = Box(1, 2, 5, 10)
+box = Box(1, 10, 10, 10)
 box.random_pos()
 box.plot("red")
 
-box.update_pos()
-box.plot("green")
+for i in range(500):
+    for particle in box.particles:
+        particle.gradient = particle.gradient - (particle.gradient * 0.05)
+        box.update_pos()
+        box.plot("blue")
 
 plt.show()
 
